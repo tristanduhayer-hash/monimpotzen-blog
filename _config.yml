@@ -1,0 +1,32 @@
+title: Mon Impôt Zen
+description: "Accompagnement à la déclaration de revenus, 100 % en visio : bailleurs, investisseurs Pinel, frontaliers, PER. Étude offerte."
+url: "https://monimpotzen.com"
+baseurl: ""
+lang: fr_FR
+timezone: Europe/Paris
+permalink: /blog/:title/
+
+# Liens MIZ
+calendly: "https://calendly.com/contact-monimpotzen/30min"
+site_principal: "https://www.monimpotzen.fr"
+contact: "contact@monimpotzen.fr"
+instagram: "https://www.instagram.com/monimpotzen/"
+linkedin: "https://www.linkedin.com/company/miz-mon-impot-zen/"
+
+# Pixel Meta : chargé uniquement après accord de l'internaute (bandeau cookies). Laisser vide pour le désactiver.
+meta_pixel_id: ""
+# Balise de vérification du domaine Meta (Business Suite > Paramètres > Sécurité de la marque > Domaines)
+facebook_domain_verification: ""
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+defaults:
+  - scope: { path: "", type: "posts" }
+    values: { layout: post }
+  - scope: { path: "" }
+    values: { layout: default }
+
+exclude: [README.md, Gemfile, Gemfile.lock]

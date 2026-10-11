@@ -1,0 +1,11 @@
+---
+title: Articles
+description: "Revenus fonciers, Pinel, frontaliers, PER : les oublis fréquents dans la déclaration de revenus, expliqués simplement."
+---
+<h1>Articles</h1>
+<p class="chapo">Les oublis et erreurs fréquents dans la déclaration de revenus, expliqués simplement.</p>
+<ul class="liste-articles">
+  {% for post in site.posts %}
+  <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><br><span class="meta">{{ post.date | date: "%d/%m/%Y" }}{% if post.cible %} · {{ post.cible }}{% endif %}</span>{% if post.chapo %}<br>{{ post.chapo }}{% endif %}</li>
+  {% endfor %}
+</ul>

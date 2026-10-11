@@ -1,0 +1,33 @@
+---
+title: Mon Impôt Zen : vos déclarations d'impôt vérifiées avec vous
+description: "Bailleurs, investisseurs Pinel, frontaliers, détenteurs de PER : Mon Impôt Zen vérifie avec vous vos déclarations de revenus, 100 % en visio. Étude offerte."
+---
+<section class="hero">
+  <h1>Vous avez peut-être payé trop d'impôt.</h1>
+  <p>Mon Impôt Zen vérifie avec vous vos déclarations de revenus, repère ce qui a pu être oublié et vous accompagne pour faire rectifier les années encore ouvertes. 100 % en visio, partout en France.</p>
+  <a class="bouton" href="{{ site.calendly }}" rel="noopener">Réserver mon étude offerte</a>
+</section>
+
+<h2>Pour qui ?</h2>
+<div class="cartes">
+  <div class="carte"><h3>Propriétaires bailleurs</h3><p>Charges oubliées, régime mal choisi, déficit non reporté : la location vide multiplie les pièges.</p></div>
+  <div class="carte"><h3>Investisseurs Pinel</h3><p>La réduction doit être déclarée chaque année. Après l'achat, beaucoup se retrouvent seuls face à leur déclaration.</p></div>
+  <div class="carte"><h3>Frontaliers</h3><p>Salaire suisse ou allemand, allocations, conversion des devises : deux systèmes, deux fois plus de risques d'erreur.</p></div>
+  <div class="carte"><h3>Détenteurs de PER</h3><p>Vos versements sont-ils bien pris en compte sur votre avis ? Un oubli coûte cher.</p></div>
+</div>
+
+<h2>Comment ça se passe ?</h2>
+<ol>
+  <li><strong>Étude offerte</strong> en visio (30 min) : nous regardons vos derniers avis d'imposition avec vous.</li>
+  <li><strong>Vérification</strong> : nous repérons les oublis et erreurs fréquents.</li>
+  <li><strong>Accompagnement</strong> : vous restez maître de votre déclaration, vous saisissez et signez vous-même depuis votre espace impots.gouv, nous vous guidons.</li>
+</ol>
+<p>Plus de 70 % des personnes que nous accompagnons avaient oublié au moins un avantage fiscal.</p>
+
+<h2>Derniers articles</h2>
+<ul class="liste-articles">
+  {% for post in site.posts limit:5 %}
+  <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><br><span class="meta">{{ post.date | date: "%d/%m/%Y" }}</span></li>
+  {% endfor %}
+</ul>
+{% include cta.html %}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% if site.facebook_domain_verification != "" %}<meta name="facebook-domain-verification" content="{{ site.facebook_domain_verification }}">{% endif %}
+  {% seo %}
+  {% feed_meta %}
+  {% include favicon.html %}
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="entete">
+    <div class="conteneur entete-in">
+      <a href="{{ '/' | relative_url }}" class="marque">{% include logo.html %}</a>
+      <nav>
+        <a href="{{ '/blog/' | relative_url }}">Articles</a>
+        <a href="{{ '/etude-offerte/' | relative_url }}" class="bouton petit">Étude offerte</a>
+      </nav>
+    </div>
+  </header>
+  <main class="conteneur">
+    {{ content }}
+  </main>
+  <footer class="pied">
+    <div class="conteneur">
+      <p><strong>Mon Impôt Zen</strong> : accompagnement à la déclaration de revenus, 100 % en visioconférence, partout en France.</p>
+      <p>Mon Impôt Zen est une société de consulting : nous ne délivrons ni conseil juridique, ni conseil en investissement. Les articles sont des informations générales et ne constituent pas un conseil personnalisé.</p>
+      <p>
+        <a href="{{ site.site_principal }}">monimpotzen.fr</a> ·
+        <a href="{{ site.instagram }}">Instagram</a> ·
+        <a href="{{ site.linkedin }}">LinkedIn</a> ·
+        <a href="{{ '/mentions-legales/' | relative_url }}">Mentions légales</a> ·
+        <a href="{{ '/confidentialite/' | relative_url }}">Confidentialité</a> ·
+        <a href="#" id="gerer-cookies">Cookies</a>
+      </p>
+    </div>
+  </footer>
+  {% include consentement.html %}
+</body>
+</html>

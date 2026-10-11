@@ -1,0 +1,26 @@
+{% if site.meta_pixel_id != "" %}
+<div id="cookies" class="cookies" hidden>
+  <p>Avec votre accord, nous utilisons le pixel Meta pour mesurer l'efficacité de nos publications et publicités. Vous pouvez changer d'avis à tout moment (lien « Cookies » en bas de page). <a href="{{ '/confidentialite/' | relative_url }}">En savoir plus</a></p>
+  <div class="cookies-boutons">
+    <button type="button" id="cookies-refuser" class="bouton secondaire">Refuser</button>
+    <button type="button" id="cookies-accepter" class="bouton">Accepter</button>
+  </div>
+</div>
+<script>
+(function () {
+  var CLE = 'miz-consentement', bandeau = document.getElementById('cookies');
+  function lire() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
+  function ecrire(v) { try { localStorage.setItem(CLE, v); } catch (e) {} }
+  function pixel() {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '{{ site.meta_pixel_id }}'); fbq('track', 'PageView');
+    document.querySelectorAll('a[href*="calendly.com"]').forEach(function (a) { a.addEventListener('click', function () { fbq('track', 'Lead'); }); });
+  }
+  var choix = lire();
+  if (choix === 'oui') pixel(); else if (choix !== 'non') bandeau.hidden = false;
+  document.getElementById('cookies-accepter').onclick = function () { ecrire('oui'); bandeau.hidden = true; pixel(); };
+  document.getElementById('cookies-refuser').onclick = function () { ecrire('non'); bandeau.hidden = true; };
+  document.getElementById('gerer-cookies').onclick = function (e) { e.preventDefault(); bandeau.hidden = false; };
+})();
+</script>
+{% endif %}
