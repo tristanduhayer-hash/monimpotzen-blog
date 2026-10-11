@@ -6,3 +6,5 @@ Site Jekyll publié par GitHub Pages. Produit et alimenté par le skill « Mon M
 - Liens (Calendly, réseaux), pixel Meta et vérification de domaine : `_config.yml`.
 - Le pixel n'est chargé qu'après accord de l'internaute (`_includes/consentement.html`).
 - Toute publication passe la grille de conformité MIZ (pas de conseil personnalisé, pas de promesse de gain, pas de mode d'emploi détaillé).
+
+_Accès en écriture de Claude vérifié le 11/10/2026._
