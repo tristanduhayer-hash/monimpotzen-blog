@@ -1,0 +1,128 @@
+---
+title: "Pré-diagnostic : avez-vous payé trop d'impôt ?"
+description: "10 questions, 2 minutes : découvrez si vos déclarations de revenus méritent une vérification. Gratuit, anonyme, rien n'est enregistré."
+permalink: /pre-diagnostic/
+sitemap: false
+robots: noindex
+---
+<div class="etroit">
+  <section class="hero diag-hero">
+    <span class="etiquette courte" style="background:rgba(255,255,255,.1);color:#D4C5B0">Pré-diagnostic gratuit · 2 minutes</span>
+    <h1 style="margin-top:16px">Avez-vous payé <em>trop d'impôt</em> ?</h1>
+    <p>Répondez à quelques questions simples sur votre situation. Vos réponses restent dans votre navigateur : rien n'est enregistré ni envoyé.</p>
+  </section>
+
+  <section class="diag carte" id="diag" aria-live="polite">
+    <div class="diag-progression"><div id="diag-barre"></div></div>
+    <p class="meta" id="diag-compteur"></p>
+    <h2 id="diag-question" class="diag-question"></h2>
+    <p id="diag-aide" class="diag-aide"></p>
+    <div id="diag-reponses" class="diag-reponses"></div>
+    <button type="button" id="diag-retour" class="diag-retour" hidden>← Question précédente</button>
+  </section>
+
+  <section class="diag carte" id="diag-resultat" hidden>
+    <span class="etiquette courte">Votre résultat</span>
+    <h2 id="res-titre" class="diag-question"></h2>
+    <p id="res-texte"></p>
+    <ul class="coches" id="res-points"></ul>
+    <div id="res-patrimoine" class="diag-encart" hidden>
+      <p><strong>Votre imposition est élevée ?</strong> Des solutions légales existent. Si vous le souhaitez, nous pouvons vous mettre en relation avec un professionnel spécialisé : dites-le-nous lors de votre étude offerte. Les dirigeants de Mon Impôt Zen dirigent également des sociétés de gestion de patrimoine.</p>
+    </div>
+    <p style="margin-top:22px"><a class="bouton" id="res-cta" href="{{ site.calendly }}" rel="noopener">Réserver mon étude offerte (30 min)</a></p>
+    <p class="avertissement">Ce pré-diagnostic repose uniquement sur vos réponses : il ne constitue ni une analyse de vos déclarations, ni un conseil personnalisé. Seule l'étude de vos avis d'imposition permet de savoir si une rectification est possible. En général, les revenus 2023, 2024 et 2025 peuvent encore être rectifiés jusqu'au 31 décembre 2026 pour 2023 (la date exacte dépend de votre avis).</p>
+    <button type="button" id="diag-recommencer" class="diag-retour">↺ Recommencer</button>
+  </section>
+</div>
+
+<script>
+(function () {
+  // Questions : id, texte, aide, réponses [libellé, valeur], condition d'affichage (réponses précédentes)
+  var Q = [
+    { id: 'nue', q: 'Louez-vous un ou plusieurs logements vides (non meublés) ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'credit', si: function (a) { return a.nue === 'oui'; }, q: 'Avez-vous un crédit en cours sur ce logement ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'regime', si: function (a) { return a.nue === 'oui'; }, q: 'Comment déclarez-vous vos loyers ?', aide: 'Le « micro-foncier » applique un abattement forfaitaire ; le « réel » permet de déduire vos charges.', r: [['Au micro-foncier', 'micro'], ['Au régime réel', 'reel'], ['Je ne sais pas', 'nsp']] },
+    { id: 'travaux', si: function (a) { return a.nue === 'oui'; }, q: 'Avez-vous fait des travaux dans ce logement depuis 2023 ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'meuble', q: 'Louez-vous un logement meublé (LMNP, location saisonnière) ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'pinel', q: 'Avez-vous investi en Pinel, Duflot, Denormandie ou Scellier ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'frontalier', q: 'Travaillez-vous en Suisse ou en Allemagne ?', r: [['En Suisse', 'suisse'], ['En Allemagne', 'allemagne'], ['Non', 'non']] },
+    { id: 'per', q: 'Versez-vous sur un plan d’épargne retraite (PER) ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'frais', q: 'Faites-vous plus de 30 km pour aller travailler, ou avez-vous des frais professionnels importants ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'famille', q: 'Avez-vous des enfants en bas âge ou étudiants, ou versez-vous une pension alimentaire ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'domicile', q: 'Employez-vous quelqu’un à domicile (ménage, garde, soutien scolaire) ou faites-vous des dons ?', r: [['Oui', 'oui'], ['Non', 'non']] },
+    { id: 'qui', q: 'Qui remplit vos déclarations de revenus ?', r: [['Moi-même', 'moi'], ['Je valide la déclaration pré-remplie sans rien modifier', 'valide'], ['Un professionnel', 'pro']] },
+    { id: 'impot', q: 'Votre impôt sur le revenu dépasse-t-il 5 000 € par an ?', r: [['Oui', 'oui'], ['Non', 'non'], ['Je ne sais pas', 'nsp']] }
+  ];
+
+  // Thèmes à faire vérifier (affichés sans détail : le savoir-faire reste réservé à l'étude)
+  function points(a) {
+    var p = [];
+    if (a.nue === 'oui') {
+      if (a.credit === 'oui' || a.regime !== 'reel' || a.travaux === 'oui') p.push('Vos revenus fonciers (location vide)');
+      else p.push('Vos revenus fonciers : un contrôle de cohérence reste utile');
+    }
+    if (a.meuble === 'oui') p.push('Vos revenus de location meublée');
+    if (a.pinel === 'oui') p.push('Votre réduction d’impôt d’investissement locatif et ses reports');
+    if (a.frontalier === 'suisse') p.push('Votre salaire suisse et sa conversion en euros');
+    if (a.frontalier === 'allemagne') p.push('Votre salaire allemand');
+    if (a.per === 'oui') p.push('Vos versements sur votre PER');
+    if (a.frais === 'oui') p.push('Vos frais professionnels');
+    if (a.famille === 'oui') p.push('Votre situation familiale (enfants, pensions)');
+    if (a.domicile === 'oui') p.push('Vos crédits et réductions d’impôt (emploi à domicile, dons)');
+    return p;
+  }
+
+  var rep = {}, pile = [], i = -1;
+  var $ = function (id) { return document.getElementById(id); };
+  function visibles() { return Q.filter(function (q) { return !q.si || q.si(rep); }); }
+
+  function suivante() {
+    for (var k = i + 1; k < Q.length; k++) if (!Q[k].si || Q[k].si(rep)) return k;
+    return -1;
+  }
+  function afficher() {
+    var q = Q[i], v = visibles(), pos = v.indexOf(q) + 1;
+    $('diag-compteur').textContent = 'Question ' + pos + ' sur ' + v.length;
+    $('diag-barre').style.width = Math.round((pos - 1) / v.length * 100) + '%';
+    $('diag-question').textContent = q.q;
+    $('diag-aide').textContent = q.aide || '';
+    $('diag-aide').hidden = !q.aide;
+    var zone = $('diag-reponses'); zone.innerHTML = '';
+    q.r.forEach(function (r) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'diag-choix' + (rep[q.id] === r[1] ? ' choisi' : ''); b.textContent = r[0];
+      b.onclick = function () { rep[q.id] = r[1]; pile.push(i); avancer(); };
+      zone.appendChild(b);
+    });
+    $('diag-retour').hidden = pile.length === 0;
+  }
+  function avancer() {
+    var n = suivante();
+    if (n === -1) return resultat();
+    i = n; afficher();
+  }
+  function resultat() {
+    var p = points(rep), forts = p.length;
+    if (rep.qui === 'valide' && forts > 0) forts++;
+    $('diag').hidden = true; $('diag-resultat').hidden = false;
+    $('res-titre').textContent = p.length === 0
+      ? 'Aucun point évident, mais une vérification peut le confirmer'
+      : (p.length === 1 ? '1 point mérite une vérification' : p.length + ' points méritent une vérification');
+    $('res-texte').textContent = p.length === 0
+      ? 'D’après vos réponses, votre situation semble simple. Une étude de vos avis d’imposition permet de s’en assurer, gratuitement.'
+      : (forts >= 3
+        ? 'Votre situation fait partie de celles où les oublis sont les plus fréquents. Faites vérifier vos déclarations avant le 31 décembre.'
+        : 'Ces éléments sont souvent source d’oublis dans la déclaration de revenus. Une étude de vos avis d’imposition permet de le vérifier.');
+    var ul = $('res-points'); ul.innerHTML = '';
+    p.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    $('res-patrimoine').hidden = rep.impot !== 'oui';
+    var url = '{{ site.calendly }}?utm_source=blog&utm_medium=prediagnostic&utm_campaign=points_' + p.length;
+    $('res-cta').href = url;
+    $('diag-resultat').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.fbq) window.fbq('trackCustom', 'PreDiagnostic', { points: p.length });
+  }
+  $('diag-retour').onclick = function () { if (!pile.length) return; i = pile.pop(); afficher(); };
+  $('diag-recommencer').onclick = function () { rep = {}; pile = []; i = -1; $('diag-resultat').hidden = true; $('diag').hidden = false; avancer(); };
+  avancer();
+})();
+</script>
