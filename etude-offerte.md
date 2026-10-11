@@ -3,6 +3,7 @@ title: Étude offerte de vos déclarations
 description: "30 minutes en visio pour vérifier avec vous vos derniers avis d'imposition. Bailleurs, Pinel, frontaliers, PER. Sans engagement."
 permalink: /etude-offerte/
 ---
+<div class="article etroit" markdown="1">
 # Étude offerte de vos déclarations
 
 <p class="chapo">30 minutes en visio, sans engagement, pour regarder avec vous vos derniers avis d'imposition et repérer ce qui a pu être oublié.</p>
@@ -28,3 +29,5 @@ Une déclaration peut en général être rectifiée jusqu'au 31 décembre de la 
 <a class="bouton" href="{{ site.calendly }}" rel="noopener">Réserver mon étude offerte</a>
 
 <p class="avertissement">Vos informations servent uniquement à organiser l'étude et à vous recontacter. Voir notre <a href="{{ '/confidentialite/' | relative_url }}">politique de confidentialité</a>. Mon Impôt Zen est une société de consulting : nous ne délivrons ni conseil juridique, ni conseil en investissement.</p>
+
+</div>

@@ -3,31 +3,40 @@ title: Mon Impôt Zen : vos déclarations d'impôt vérifiées avec vous
 description: "Bailleurs, investisseurs Pinel, frontaliers, détenteurs de PER : Mon Impôt Zen vérifie avec vous vos déclarations de revenus, 100 % en visio. Étude offerte."
 ---
 <section class="hero">
-  <h1>Vous avez peut-être payé trop d'impôt.</h1>
-  <p>Mon Impôt Zen vérifie avec vous vos déclarations de revenus, repère ce qui a pu être oublié et vous accompagne pour faire rectifier les années encore ouvertes. 100 % en visio, partout en France.</p>
-  <a class="bouton" href="{{ site.calendly }}" rel="noopener">Réserver mon étude offerte</a>
+  <span class="etiquette courte" style="background:rgba(255,255,255,.1);color:#D4C5B0">Revenus 2023 : jusqu'au 31 décembre</span>
+  <h1 style="margin-top:18px">Vous avez peut-être payé <em>trop d'impôt</em>.</h1>
+  <p>Nous vérifions avec vous vos déclarations de revenus, repérons ce qui a pu être oublié et vous accompagnons pour faire rectifier les années encore ouvertes. 100 % en visio, partout en France.</p>
+  <div class="actions">
+    <a class="bouton" href="{{ site.calendly }}" rel="noopener">Réserver mon étude offerte</a>
+    <a class="bouton secondaire" href="{{ '/blog/' | relative_url }}">Lire nos articles</a>
+  </div>
+  <span class="chiffre">Plus de 70 % des personnes que nous accompagnons avaient oublié au moins un avantage fiscal</span>
 </section>
 
-<h2>Pour qui ?</h2>
+<h2 class="titre-section">Pour qui ?</h2>
+<div class="filet"></div>
+<p class="sous-titre">Simplifiez vos impôts, gagnez en sérénité</p>
 <div class="cartes">
-  <div class="carte"><h3>Propriétaires bailleurs</h3><p>Charges oubliées, régime mal choisi, déficit non reporté : la location vide multiplie les pièges.</p></div>
-  <div class="carte"><h3>Investisseurs Pinel</h3><p>La réduction doit être déclarée chaque année. Après l'achat, beaucoup se retrouvent seuls face à leur déclaration.</p></div>
-  <div class="carte"><h3>Frontaliers</h3><p>Salaire suisse ou allemand, allocations, conversion des devises : deux systèmes, deux fois plus de risques d'erreur.</p></div>
-  <div class="carte"><h3>Détenteurs de PER</h3><p>Vos versements sont-ils bien pris en compte sur votre avis ? Un oubli coûte cher.</p></div>
+  <div class="carte"><span class="etiquette">Immobilier locatif</span><h3>Propriétaires bailleurs</h3><p>Charges oubliées, régime mal choisi, déficit non reporté : la location vide multiplie les pièges.</p><div class="filet-carte"></div></div>
+  <div class="carte"><span class="etiquette">Réductions d'impôt</span><h3>Investisseurs Pinel</h3><p>La réduction doit être déclarée chaque année. Après l'achat, beaucoup se retrouvent seuls face à leur déclaration.</p><div class="filet-carte"></div></div>
+  <div class="carte"><span class="etiquette">Situations internationales</span><h3>Frontaliers suisses et allemands</h3><p>Salaire étranger, allocations, conversion des devises : deux systèmes, deux fois plus de risques d'erreur.</p><div class="filet-carte"></div></div>
+  <div class="carte"><span class="etiquette">Épargne retraite</span><h3>Détenteurs de PER</h3><p>Vos versements sont-ils bien pris en compte sur votre avis d'imposition ? Un oubli coûte cher.</p><div class="filet-carte"></div></div>
 </div>
 
-<h2>Comment ça se passe ?</h2>
-<ol>
-  <li><strong>Étude offerte</strong> en visio (30 min) : nous regardons vos derniers avis d'imposition avec vous.</li>
-  <li><strong>Vérification</strong> : nous repérons les oublis et erreurs fréquents.</li>
-  <li><strong>Accompagnement</strong> : vous restez maître de votre déclaration, vous saisissez et signez vous-même depuis votre espace impots.gouv, nous vous guidons.</li>
-</ol>
-<p>Plus de 70 % des personnes que nous accompagnons avaient oublié au moins un avantage fiscal.</p>
+<h2 class="titre-section">Comment ça se passe ?</h2>
+<div class="filet"></div>
+<div class="etapes">
+  <div class="etape"><span class="etiquette courte">Étape 1</span><h3>Votre étude offerte, en visio</h3><p>30 minutes pour regarder ensemble vos derniers avis d'imposition.</p></div>
+  <div class="etape"><span class="etiquette courte">Étape 2</span><h3>La vérification</h3><p>Nous repérons les oublis et erreurs fréquents, sur les années encore rectifiables.</p></div>
+  <div class="etape"><span class="etiquette courte">Étape 3</span><h3>L'accompagnement</h3><p>Vous restez maître de votre déclaration : vous saisissez et signez vous-même depuis votre espace impots.gouv, nous vous guidons.</p>
+    <ul class="coches"><li>100 % en visioconférence</li><li>Jamais vos identifiants impots.gouv</li><li>Confidentialité de vos données et échanges</li></ul></div>
+</div>
 
-<h2>Derniers articles</h2>
-<ul class="liste-articles">
+<h2 class="titre-section">Derniers articles</h2>
+<div class="filet"></div>
+<ul class="liste-articles etroit">
   {% for post in site.posts limit:5 %}
-  <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><br><span class="meta">{{ post.date | date: "%d/%m/%Y" }}</span></li>
+  <li><span class="meta">{{ post.date | date: "%d/%m/%Y" }}{% if post.cible %} · {{ post.cible }}{% endif %}</span><br><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.chapo %}<p>{{ post.chapo }}</p>{% endif %}</li>
   {% endfor %}
 </ul>
-{% include cta.html %}
+<div class="etroit">{% include cta.html %}</div>

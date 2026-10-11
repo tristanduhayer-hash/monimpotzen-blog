@@ -3,6 +3,7 @@ title: Mentions légales
 permalink: /mentions-legales/
 sitemap: false
 ---
+<div class="article etroit" markdown="1">
 # Mentions légales
 
 ## Éditeur
@@ -24,3 +25,5 @@ Les textes et visuels de ce site appartiennent à Mon Impôt Zen. Toute reproduc
 
 ## Données personnelles
 Voir la [politique de confidentialité]({{ '/confidentialite/' | relative_url }}).
+
+</div>

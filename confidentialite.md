@@ -3,6 +3,7 @@ title: Politique de confidentialité
 permalink: /confidentialite/
 sitemap: false
 ---
+<div class="article etroit" markdown="1">
 # Politique de confidentialité
 
 *Dernière mise à jour : 11 octobre 2026*
@@ -30,7 +31,7 @@ Nous ne vous demandons jamais vos identifiants impots.gouv.fr : lors des rendez-
 
 ## 4. Qui reçoit vos données ?
 - Les dirigeants de Mon Impôt Zen, Emir Catic et Tristan Duhayer.
-- Nos prestataires techniques, qui agissent sur nos instructions : prise de rendez-vous (Calendly), réseaux sociaux et messagerie (Meta, LinkedIn), outils de visioconférence, de messagerie et de suivi des demandes, hébergement de ce site (GitHub).
+- Nos prestataires techniques, qui agissent sur nos instructions : prise de rendez-vous (Calendly), réseaux sociaux et messagerie (Meta, LinkedIn), outils de visioconférence, de messagerie et de suivi des demandes, hébergement de ce site (GitHub) et police de caractères (Fontshare).
 - **Avec votre accord uniquement** : des sociétés de gestion de patrimoine partenaires. Les dirigeants de Mon Impôt Zen dirigent également des sociétés de gestion de patrimoine, et Mon Impôt Zen peut être rémunéré par ces sociétés pour la mise en relation.
 
 Vos données ne sont **jamais vendues**.
@@ -52,3 +53,5 @@ Vous pouvez aussi saisir la **CNIL** ([www.cnil.fr](https://www.cnil.fr)).
 
 ## 8. Cookies
 Ce site ne dépose aucun cookie publicitaire sans votre accord. Le pixel Meta n'est chargé que si vous cliquez sur « Accepter ». Vous pouvez changer d'avis à tout moment avec le lien « Cookies » en bas de page.
+
+</div>

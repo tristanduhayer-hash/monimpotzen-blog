@@ -2,10 +2,12 @@
 title: Articles
 description: "Revenus fonciers, Pinel, frontaliers, PER : les oublis fréquents dans la déclaration de revenus, expliqués simplement."
 ---
-<h1>Articles</h1>
-<p class="chapo">Les oublis et erreurs fréquents dans la déclaration de revenus, expliqués simplement.</p>
-<ul class="liste-articles">
+<h1 class="titre-section" style="margin-top:24px">Nos articles</h1>
+<div class="filet"></div>
+<p class="sous-titre">Les oublis et erreurs fréquents dans la déclaration de revenus, expliqués simplement.</p>
+<ul class="liste-articles etroit">
   {% for post in site.posts %}
-  <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><br><span class="meta">{{ post.date | date: "%d/%m/%Y" }}{% if post.cible %} · {{ post.cible }}{% endif %}</span>{% if post.chapo %}<br>{{ post.chapo }}{% endif %}</li>
+  <li><span class="meta">{{ post.date | date: "%d/%m/%Y" }}{% if post.cible %} · {{ post.cible }}{% endif %}</span><br><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.chapo %}<p>{{ post.chapo }}</p>{% endif %}</li>
   {% endfor %}
 </ul>
+<div class="etroit">{% include cta.html %}</div>

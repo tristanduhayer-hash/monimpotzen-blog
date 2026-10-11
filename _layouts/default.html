@@ -6,16 +6,19 @@
   {% if site.facebook_domain_verification != "" %}<meta name="facebook-domain-verification" content="{{ site.facebook_domain_verification }}">{% endif %}
   {% seo %}
   {% feed_meta %}
-  {% include favicon.html %}
-  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/logo_bleu.svg' | relative_url }}">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}?v=2">
 </head>
 <body>
   <header class="entete">
     <div class="conteneur entete-in">
-      <a href="{{ '/' | relative_url }}" class="marque">{% include logo.html %}</a>
+      <a href="{{ '/' | relative_url }}" class="marque"><img src="{{ '/assets/logo_blanc.svg' | relative_url }}" alt="Mon Impôt Zen" width="62" height="62"><span>Le blog</span></a>
       <nav>
         <a href="{{ '/blog/' | relative_url }}">Articles</a>
-        <a href="{{ '/etude-offerte/' | relative_url }}" class="bouton petit">Étude offerte</a>
+        <a href="{{ site.site_principal }}">monimpotzen.fr</a>
+        <a href="{{ '/etude-offerte/' | relative_url }}" class="bouton clair petit">Étude offerte</a>
       </nav>
     </div>
   </header>
@@ -24,14 +27,15 @@
   </main>
   <footer class="pied">
     <div class="conteneur">
-      <p><strong>Mon Impôt Zen</strong> : accompagnement à la déclaration de revenus, 100 % en visioconférence, partout en France.</p>
+      <a href="{{ '/' | relative_url }}" class="marque"><img src="{{ '/assets/logo_blanc.svg' | relative_url }}" alt="Mon Impôt Zen" width="72" height="72"></a>
+      <p>Accompagnement à la déclaration de revenus, 100 % en visioconférence, partout en France.</p>
       <p>Mon Impôt Zen est une société de consulting : nous ne délivrons ni conseil juridique, ni conseil en investissement. Les articles sont des informations générales et ne constituent pas un conseil personnalisé.</p>
-      <p>
-        <a href="{{ site.site_principal }}">monimpotzen.fr</a> ·
-        <a href="{{ site.instagram }}">Instagram</a> ·
-        <a href="{{ site.linkedin }}">LinkedIn</a> ·
-        <a href="{{ '/mentions-legales/' | relative_url }}">Mentions légales</a> ·
-        <a href="{{ '/confidentialite/' | relative_url }}">Confidentialité</a> ·
+      <p class="pied-liens">
+        <a href="{{ site.site_principal }}">monimpotzen.fr</a>
+        <a href="{{ site.instagram }}">Instagram</a>
+        <a href="{{ site.linkedin }}">LinkedIn</a>
+        <a href="{{ '/mentions-legales/' | relative_url }}">Mentions légales</a>
+        <a href="{{ '/confidentialite/' | relative_url }}">Confidentialité</a>
         <a href="#" id="gerer-cookies">Cookies</a>
       </p>
     </div>
