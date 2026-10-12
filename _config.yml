@@ -17,6 +17,9 @@ linkedin: "https://www.linkedin.com/company/miz-mon-impot-zen/"
 meta_pixel_id: "1160055779917283"
 # Balise de vérification du domaine Meta (Business Suite > Paramètres > Sécurité de la marque > Domaines)
 facebook_domain_verification: "0y35p3s3m1bmsb4zlmh52b1tkw6wjr"
+# Vérification Google Search Console (compte Google de MIZ), insérée par jekyll-seo-tag
+webmaster_verifications:
+  google: "hbefF4PvZEi7rKbce71qBe36u7AzKcbn1I9d1INaT_M"
 
 plugins:
   - jekyll-feed
