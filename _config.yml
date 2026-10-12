@@ -14,9 +14,9 @@ instagram: "https://www.instagram.com/monimpotzen/"
 linkedin: "https://www.linkedin.com/company/miz-mon-impot-zen/"
 
 # Pixel Meta : chargé uniquement après accord de l'internaute (bandeau cookies). Laisser vide pour le désactiver.
-meta_pixel_id: ""
+meta_pixel_id: "1160055779917283"
 # Balise de vérification du domaine Meta (Business Suite > Paramètres > Sécurité de la marque > Domaines)
-facebook_domain_verification: ""
+facebook_domain_verification: "0y35p3s3m1bmsb4zlmh52b1tkw6wjr"
 
 plugins:
   - jekyll-feed
