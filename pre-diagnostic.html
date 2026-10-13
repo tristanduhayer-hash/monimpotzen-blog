@@ -25,7 +25,6 @@ robots: noindex
     <span class="etiquette courte">Votre résultat</span>
     <h2 id="res-titre" class="diag-question"></h2>
     <p id="res-texte"></p>
-    <ul class="coches" id="res-points"></ul>
     <div id="res-patrimoine" class="diag-encart" hidden>
       <p><strong>Votre imposition est élevée ?</strong> Des solutions légales existent. Si vous le souhaitez, nous pouvons vous mettre en relation avec un professionnel spécialisé : dites-le-nous lors de votre étude offerte. Les dirigeants de Mon Impôt Zen dirigent également des sociétés de gestion de patrimoine.</p>
     </div>
@@ -51,25 +50,22 @@ robots: noindex
     { id: 'famille', q: 'Avez-vous des enfants en bas âge ou étudiants, ou versez-vous une pension alimentaire ?', r: [['Oui', 'oui'], ['Non', 'non']] },
     { id: 'domicile', q: 'Employez-vous quelqu’un à domicile (ménage, garde, soutien scolaire) ou faites-vous des dons ?', r: [['Oui', 'oui'], ['Non', 'non']] },
     { id: 'qui', q: 'Qui remplit vos déclarations de revenus ?', r: [['Moi-même', 'moi'], ['Je valide la déclaration pré-remplie sans rien modifier', 'valide'], ['Un professionnel', 'pro']] },
-    { id: 'impot', q: 'Votre impôt sur le revenu dépasse-t-il 5 000 € par an ?', r: [['Oui', 'oui'], ['Non', 'non'], ['Je ne sais pas', 'nsp']] }
+    { id: 'impot', q: 'Votre impôt sur le revenu dépasse-t-il 3 000 € par an ?', r: [['Oui', 'oui'], ['Non', 'non'], ['Je ne sais pas', 'nsp']] }
   ];
 
-  // Thèmes à faire vérifier (affichés sans détail : le savoir-faire reste réservé à l'étude)
+  // Nombre de points à vérifier. Seul le nombre est affiché, jamais les thèmes : le prospect ne doit pas
+  // pouvoir corriger seul (décision de Tristan, 13/10/2026).
   function points(a) {
-    var p = [];
-    if (a.nue === 'oui') {
-      if (a.credit === 'oui' || a.regime !== 'reel' || a.travaux === 'oui') p.push('Vos revenus fonciers (location vide)');
-      else p.push('Vos revenus fonciers : un contrôle de cohérence reste utile');
-    }
-    if (a.meuble === 'oui') p.push('Vos revenus de location meublée');
-    if (a.pinel === 'oui') p.push('Votre réduction d’impôt d’investissement locatif et ses reports');
-    if (a.frontalier === 'suisse') p.push('Votre salaire suisse et sa conversion en euros');
-    if (a.frontalier === 'allemagne') p.push('Votre salaire allemand');
-    if (a.per === 'oui') p.push('Vos versements sur votre PER');
-    if (a.frais === 'oui') p.push('Vos frais professionnels');
-    if (a.famille === 'oui') p.push('Votre situation familiale (enfants, pensions)');
-    if (a.domicile === 'oui') p.push('Vos crédits et réductions d’impôt (emploi à domicile, dons)');
-    return p;
+    var n = 0;
+    if (a.nue === 'oui') n++;
+    if (a.meuble === 'oui') n++;
+    if (a.pinel === 'oui') n++;
+    if (a.frontalier === 'suisse' || a.frontalier === 'allemagne') n++;
+    if (a.per === 'oui') n++;
+    if (a.frais === 'oui') n++;
+    if (a.famille === 'oui') n++;
+    if (a.domicile === 'oui') n++;
+    return n;
   }
 
   var rep = {}, pile = [], i = -1;
@@ -102,24 +98,22 @@ robots: noindex
     i = n; afficher();
   }
   function resultat() {
-    var p = points(rep), forts = p.length;
+    var n = points(rep), forts = n;
     if (rep.qui === 'valide' && forts > 0) forts++;
     $('diag').hidden = true; $('diag-resultat').hidden = false;
-    $('res-titre').textContent = p.length === 0
+    $('res-titre').textContent = n === 0
       ? 'Aucun point évident, mais une vérification peut le confirmer'
-      : (p.length === 1 ? '1 point mérite une vérification' : p.length + ' points méritent une vérification');
-    $('res-texte').textContent = p.length === 0
+      : (n === 1 ? '1 point mérite une vérification' : n + ' points méritent une vérification');
+    $('res-texte').textContent = n === 0
       ? 'D’après vos réponses, votre situation semble simple. Une étude de vos avis d’imposition permet de s’en assurer, gratuitement.'
       : (forts >= 3
         ? 'Votre situation fait partie de celles où les oublis sont les plus fréquents. Faites vérifier vos déclarations avant le 31 décembre.'
-        : 'Ces éléments sont souvent source d’oublis dans la déclaration de revenus. Une étude de vos avis d’imposition permet de le vérifier.');
-    var ul = $('res-points'); ul.innerHTML = '';
-    p.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+        : 'Ces points sont souvent source d’oublis dans la déclaration de revenus. Une étude de vos avis d’imposition permet de le vérifier.');
     $('res-patrimoine').hidden = rep.impot !== 'oui';
-    var url = '{{ site.calendly }}?utm_source=blog&utm_medium=prediagnostic&utm_campaign=points_' + p.length;
+    var url = '{{ site.calendly }}?utm_source=blog&utm_medium=prediagnostic&utm_campaign=points_' + n;
     $('res-cta').href = url;
     $('diag-resultat').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (window.fbq) window.fbq('trackCustom', 'PreDiagnostic', { points: p.length });
+    if (window.fbq) window.fbq('trackCustom', 'PreDiagnostic', { points: n });
   }
   $('diag-retour').onclick = function () { if (!pile.length) return; i = pile.pop(); afficher(); };
   $('diag-recommencer').onclick = function () { rep = {}; pile = []; i = -1; $('diag-resultat').hidden = true; $('diag').hidden = false; avancer(); };
